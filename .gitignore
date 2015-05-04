@@ -27,4 +27,9 @@
 *.out
 *.app
 
+# C#
+obj
+bin
+*.sln.*
+*.suo
 nuget-packages
