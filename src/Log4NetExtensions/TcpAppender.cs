@@ -28,7 +28,6 @@ namespace Log4NetExtensions
 			catch (Exception ex) 
 			{
 				ErrorHandler.Error("Could not initialize the TcpClient.", ex, ErrorCode.GenericFailure);
-				Client = null;
 			}
 		}
 
@@ -37,7 +36,13 @@ namespace Log4NetExtensions
 			try 
 		    {
                 //The remote can close the connection, in that case it should be reopened.
-		        if (!Client.Connected) { Client.Connect(RemoteAddress, RemotePort);}
+		        if (!Client.Connected)
+		        {
+		            Client.Close();
+                    Client = new TcpClient();
+                    Client.Connect(RemoteAddress, RemotePort);
+		        }
+
 		        var buffer = Encoding.GetBytes(RenderLoggingEvent(loggingEvent).ToCharArray());
 			    Client.GetStream().Write(buffer, 0, buffer.Length);
 			} 
