@@ -65,12 +65,12 @@ namespace Log4NetExtensions
 
         protected override void OnClose()
         {
-            base.OnClose();
             if (Client != null)
             {
                 Client.Close();
                 Client = null;
             }
+            base.OnClose();
         }
 	}
 }
