@@ -64,17 +64,17 @@ namespace Log4NetExtensions.UnitTests
         public static void SetupTcp()
         {
             var layout = new log4net.Layout.PatternLayout();
-            var appender = new TcpAppender(5140, IPAddress.Loopback) { Layout = layout};
+            var appender = new TcpAppender{ RemotePort = 5140, Layout = layout };
             layout.ActivateOptions();
             appender.ActivateOptions();
 
             var layout2 = new log4net.Layout.PatternLayout();
-            var appender2 = new TcpAppender(5140, IPAddress.Loopback) { Layout = layout2};
+            var appender2 = new TcpAppender{ RemotePort = 5140, Layout = layout2 };
             layout2.ActivateOptions();
             appender2.ActivateOptions();
 
                 var layout3 = new log4net.Layout.PatternLayout();
-            var appender3 = new TcpAppender(5140, IPAddress.Loopback) { Layout = layout3};
+            var appender3 = new TcpAppender{ RemotePort = 5140, Layout = layout3 };
             layout3.ActivateOptions();
             appender3.ActivateOptions();
 
