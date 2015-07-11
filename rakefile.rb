@@ -8,6 +8,8 @@ PWD = File.dirname(__FILE__)
 OUTPUT_DIR = File.join(PWD, 'output')
 SOLUTION_SLN = 'Log4NetExtensions.sln'
 GIT_REPOSITORY = %x[git config --get remote.origin.url].split('://')[1]
+match = (ENV['TRAVIS_BRANCH'] || '').match(/^release\/(.*)$/)
+VERSION = "#{match && match[1] ? match[1] : '0.0'}.#{ENV['TRAVIS_BUILD_NUMBER']}"
 #Environment variables: http://docs.travis-ci.com/user/environment-variables/
 directory OUTPUT_DIR
 task :build => [OUTPUT_DIR] do
@@ -21,7 +23,7 @@ task :build => [OUTPUT_DIR] do
   <metadata>
     <id>Log4NetExtensions.TcpAppender</id>
     <title>Log4NetExtensions.TcpAppender</title>
-    <version>0.1</version>
+    <version>#{VERSION}</version>
     <authors>Warren Parad</authors>
     <owners>Warren Parad</owners>
     <projectUrl>https://#{GIT_REPOSITORY}</projectUrl>
@@ -32,14 +34,14 @@ task :build => [OUTPUT_DIR] do
   </metadata>
 </package>
 ")
-    FileUtils.cp_r(Dir['src/Log4NetExtensions/bin/Release/**'], tmp)
-    raise 'Nuget packing failed' if !system("nuget pack '#{nuspec}' -Basepath #{tmp} -OutputDirectory #{OUTPUT_DIR}")
+    package_directory = 'src/Log4NetExtensions/bin/Release'
+    raise 'Nuget packing failed' if !system("nuget pack '#{nuspec}' -Basepath #{package_directory} -OutputDirectory #{OUTPUT_DIR}")
   end
 
   #Setup up deploy
   puts %x[git config --global user.email "builds@travis-ci.com"]
   puts %x[git config --global user.name "Travis CI"]
-  tag = "0.1.#{ENV['TRAVIS_BUILD_NUMBER']}"
+  tag = VERSION
   puts %x[git tag #{tag} -a -m "Generated tag from TravisCI for build #{ENV['TRAVIS_BUILD_NUMBER']}"]
   puts "Pushing Git tag #{tag}."
   %x[git push --quiet https://#{ENV['GIT_TAG_PUSHER']}@#{GIT_REPOSITORY} #{tag} > /dev/null 2>&1]

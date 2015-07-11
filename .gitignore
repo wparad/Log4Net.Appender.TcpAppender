@@ -32,4 +32,6 @@ obj
 bin
 *.sln.*
 *.suo
-nuget-packages
+packages
+TcpAppender.nuspec
+output
