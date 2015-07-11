@@ -34,7 +34,9 @@ task :build => [OUTPUT_DIR] do
   </metadata>
 </package>
 ")
-    package_directory = 'src/Log4NetExtensions/bin/Release'
+    package_directory = File.join(tmp, 'lib', 'net40')
+    FileUtils.mkdir_p(package_directory)
+    FileUtils.cp_r(Dir['src/Log4NetExtensions/bin/Release/**'], package_directory)
     raise 'Nuget packing failed' if !system("nuget pack '#{nuspec}' -Basepath #{package_directory} -OutputDirectory #{OUTPUT_DIR}")
   end
 

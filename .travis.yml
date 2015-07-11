@@ -1,5 +1,7 @@
 language: csharp
-script: rake build --trace
+script:
+  - rake build --trace
+  - ls -alR
 deploy:
   skip_cleanup: true
   provider: releases
