@@ -32,17 +32,21 @@ task :build => [OUTPUT_DIR] do
       <dependency id=\"log4net\" version=\"2.0.3\" />
     </dependencies>
   </metadata>
+  <files>
+    <file src=\"src/Log4NetExtensions/obj/Release/**/*.*\" target=\"lib/net40\" />
+  </files>
 </package>
 ")
-    package_directory = 'src/Log4NetExtensions/bin/Release'
-    raise 'Nuget packing failed' if !system("nuget pack '#{nuspec}' -Basepath #{package_directory} -OutputDirectory #{OUTPUT_DIR}")
+    raise 'Nuget packing failed' if !system("nuget pack '#{nuspec}' -BasePath #{PWD} -OutputDirectory #{OUTPUT_DIR} -Verbosity detailed")
   end
 
-  #Setup up deploy
-  puts %x[git config --global user.email "builds@travis-ci.com"]
-  puts %x[git config --global user.name "Travis CI"]
-  tag = VERSION
-  puts %x[git tag #{tag} -a -m "Generated tag from TravisCI for build #{ENV['TRAVIS_BUILD_NUMBER']}"]
-  puts "Pushing Git tag #{tag}."
-  %x[git push --quiet https://#{ENV['GIT_TAG_PUSHER']}@#{GIT_REPOSITORY} #{tag} > /dev/null 2>&1]
+  if ENV['TRAVIS']
+    #Setup up deploy
+    puts %x[git config --global user.email "builds@travis-ci.com"]
+    puts %x[git config --global user.name "Travis CI"]
+    tag = VERSION
+    puts %x[git tag #{tag} -a -m "Generated tag from TravisCI for build #{ENV['TRAVIS_BUILD_NUMBER']}"]
+    puts "Pushing Git tag #{tag}."
+    %x[git push --quiet https://#{ENV['GIT_TAG_PUSHER']}@#{GIT_REPOSITORY} #{tag} > /dev/null 2>&1]
+  end
 end
