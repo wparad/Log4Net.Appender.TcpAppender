@@ -1,5 +1,2 @@
 language: csharp
-solution: Log4NetExtensions.sln
-script:    # the following commands are just examples, use whatever your build process requires
-  - xbuild /p:Configuration=Release Log4NetExtensions.sln
-  - ls -alR
+script: rake build --trace
