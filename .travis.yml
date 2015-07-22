@@ -1,14 +1,14 @@
 language: csharp
 script:
-  - rake build --trace
-  - ls -lR
+- rake build --trace
+- ls -lR
 deploy:
   skip_cleanup: true
   provider: releases
   file_glob: true
   file: output/*.nupkg
   api_key:
-    secure: E1gPVuSh5MsGDMnlxfU7EZFlOV+5iEEOm8oRfWCW0+EPAtNCR0hDvVpQMT5VxkfUSJbEqSz/LJw0YuJ6QDnP6BU5oKDLpTTO7LFxj+pPRpz9Fbw06KnS0073SyK97VmA4LGd+yO+gPWFVY8Av4UqWyiyavSAhrlvNJ0LOz1I0d+YVLWgsH9OJOQgfdByD/uB79+0aiNTNyf+qLWMZbVBpR9FxBYgp4J2GgaArlgA2brwEKcQClQ5SsZns9MsyUQrK2lpPtiU8mdKCEGETumOdMY8EQHUyul+G3vzHBiunXzFD6qQAPnGY2JD8La3+erKOXJ10/zTuJJi8gcuQ1xMLqVCBHDCXWJ4X2EUo3QzcGI9P2MwEpaKUJyqexwabybtux/kU5pKNS9ere+cllwU2Ax907rrKZFCLfamlU/d8XxC84ywIEg+3BmmExnkieClC5dQvrrMnL+rd64gCh3cx9gX3/pOgYQr+S+vMqS+/rn4fTT0IVgh6QP7xzQ028Kz32njPyqKnZpXRZo7bFaP6UCIsQhRlIbfP5lq2kk1ijQ1stgZliwLdVtpVAHeBK2OBSu8tg9/QyKEfsaIL5vB1hGTCJu0RsWZg8SJ1SswaWmQvQm8sQ0AY75lIkW3KRUnovG81ki3UCqPQGpE+uaj04zhkYC1TOYWcfqzxFJ95X0=
+    secure: WmW8P+7vxPmVUnIbhVkfY4TzjN8bC8uguHc10fQedmSWCzJ7Lq0c6kXKoKAWKPUTmDn9+IyAYyCGXs8rjIs7ZPavd8p3vMDTFl9K72bZhCpnKMLhK2/1zWBijfAbVehK2cTGiSLUSROnvNcpX7zRj7QQWhm+iBg8YJt87gBSkg68vZN9YL+N2nUdHN2txrFKeGiH+nSce2v4jyZD+JKC74oO1rkgLx1gsJ2YEc5ZmqAibI9dsWK+Yr1SqQu/xPnanM3QCno0GKdWvL4IJijllxWTIQ8HvvZjoqXOKPkObaI2evzbvp5kT5q8rAZJ1sqX4m7hyXQcEIb1xcJijv5Topq0hr3dsPgIYMTq40DJuF7qsoAn7/GkTQrPWyv4lnXN2Sfy886iMhkUw70JHArNf4Hs3YbvnYBcntqk5yJ+rlnKRJjUKYsCxQ6/Yc4QM0H8wCgdDRS3fRYHa640DrlDm8SzceViyJzGTbhdskKvUgSbvAJU+YN6VnCvjXwyj0SD1cAIFiO18FZMEHegJ2CSaF8TkEA/6WgVtge5OxHgDBQqDmgAynfWrXyKFRNbJ2K0gjgdybtCxGwo7YpX183HWYxSb2s89bMl9wuXnxIAZ+nocDxpr3AZO8fXFET5Pr7c+2zx7VjeX66t0Wqe3pYM4yCO/FdhToHxJK4k2Of4Jds=
   on:
     tags: false
     all_branches: true
